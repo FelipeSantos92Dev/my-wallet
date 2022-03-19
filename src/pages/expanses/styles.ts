@@ -28,6 +28,7 @@ export const Filters = styled.div`
     width: 60px;
     margin: 0 auto;
     border-bottom: 10px solid ${(props) => props.theme.colors.warning};
+    border-radius: 5px;
   }
 
   .eventual::after {
@@ -36,6 +37,7 @@ export const Filters = styled.div`
     width: 60px;
     margin: 0 auto;
     border-bottom: 10px solid ${(props) => props.theme.colors.danger};
+    border-radius: 5px;
   }
 `
 

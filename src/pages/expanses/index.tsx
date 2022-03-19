@@ -18,7 +18,7 @@ const List: React.FC = () => {
 
   return (
     <Container>
-      <ContentHeader title="Saídas" lineColor="#FFF">
+      <ContentHeader title="Despesas" lineColor="#F23005">
         <SelectInput options={months} />
         <SelectInput options={years} />
       </ContentHeader>

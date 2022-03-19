@@ -20,6 +20,7 @@ export const TitleContainer = styled.div<TitleContainerProps>`
       display: block;
       width: 55px;
       border-bottom: 10px solid ${(props) => props.lineColor};
+      border-radius: 5px;
     }
   }
 `
