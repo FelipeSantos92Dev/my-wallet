@@ -1,4 +1,3 @@
-import ContentHeader from 'components/ContentHeader'
 import { Container } from './styles'
 
 const Content: React.FC = ({ children }) => {

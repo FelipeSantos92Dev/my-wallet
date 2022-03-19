@@ -5,6 +5,7 @@ import Head from 'next/head'
 import GlobalStyles from 'styles/globalStyles'
 import Layout from 'components/Layout'
 import Dashboard from './dashboard'
+import List from './list'
 import dark from 'styles/themes/dark'
 
 function App({ Component, pageProps }: AppProps) {
@@ -18,7 +19,7 @@ function App({ Component, pageProps }: AppProps) {
       </Head>
       <GlobalStyles />
       <Layout>
-        <Dashboard />
+        <List />
       </Layout>
       <Component {...pageProps} />
     </ThemeProvider>
