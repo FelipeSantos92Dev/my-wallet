@@ -10,7 +10,7 @@ export const Container = styled.li`
   list-style: none;
   border-radius: 5px;
 
-  margin: 10px;
+  margin: 10px 0;
   padding: 12px 10px;
 
   display: flex;
