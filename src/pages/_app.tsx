@@ -3,6 +3,8 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
 import GlobalStyles from 'styles/globalStyles'
+import Layout from 'components/Layout'
+import Dashboard from './dashboard'
 import dark from 'styles/themes/dark'
 
 function App({ Component, pageProps }: AppProps) {
@@ -15,6 +17,9 @@ function App({ Component, pageProps }: AppProps) {
         <meta name="description" content="A financial dashboard project" />
       </Head>
       <GlobalStyles />
+      <Layout>
+        <Dashboard />
+      </Layout>
       <Component {...pageProps} />
     </ThemeProvider>
   )
