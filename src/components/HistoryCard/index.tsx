@@ -1,7 +1,6 @@
 import { Container, Tag } from './styles'
 
 interface HistoryCardProps {
-  cardColor: string
   tagColor: string
   title: string
   subtitle: string
@@ -9,14 +8,13 @@ interface HistoryCardProps {
 }
 
 const HistoryCard: React.FC<HistoryCardProps> = ({
-  cardColor,
   tagColor,
   title,
   subtitle,
   amount
 }) => {
   return (
-    <Container color={cardColor}>
+    <Container>
       <Tag color={tagColor} />
       <div>
         <span>{title}</span>
