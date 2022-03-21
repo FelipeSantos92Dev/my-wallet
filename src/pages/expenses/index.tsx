@@ -1,9 +1,11 @@
+import { useState, useEffect } from 'react'
 import ContentHeader from 'components/ContentHeader'
 import HistoryCard from 'components/HistoryCard'
 import SelectInput from 'components/SelectInput'
 import { Container, Content, Filters } from './styles'
 import expenses from 'repositories/expenses'
-import { useState, useEffect } from 'react'
+import formatCurrency from 'utils/formatCurrency'
+import formatDate from 'utils/formatDate'
 
 interface DataProps {
   id: string
@@ -20,11 +22,11 @@ const List: React.FC = () => {
   useEffect(() => {
     const response = expenses.map((item) => {
       return {
-        id: String(Math.random() * data.length),
+        id: String(Math.random() * 10),
         description: item.description,
-        amountFormatted: item.amount,
+        amountFormatted: formatCurrency(Number(item.amount)),
         frequency: item.frequency,
-        dateFormatted: item.date,
+        dateFormatted: formatDate(item.date),
         tagColor: item.frequency === 'eventual' ? '#FEA' : '#AEF'
       }
     })

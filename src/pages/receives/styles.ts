@@ -27,7 +27,7 @@ export const Filters = styled.div`
     display: block;
     width: 60px;
     margin: 0 auto;
-    border-bottom: 10px solid ${(props) => props.theme.colors.warning};
+    border-bottom: 10px solid ${(props) => props.theme.colors.recurrent};
     border-radius: 5px;
   }
 
@@ -36,7 +36,7 @@ export const Filters = styled.div`
     display: block;
     width: 60px;
     margin: 0 auto;
-    border-bottom: 10px solid ${(props) => props.theme.colors.danger};
+    border-bottom: 10px solid ${(props) => props.theme.colors.eventual};
     border-radius: 5px;
   }
 `

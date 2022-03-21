@@ -4,14 +4,14 @@ export default [
     amount: '3000',
     type: 'receita',
     frequency: 'recorrente',
-    date: '2022-03-05'
+    date: '2022-10-10'
   },
   {
     description: 'Seguro desemprego',
     amount: '2000',
     type: 'receita',
     frequency: 'recorrente',
-    date: '2022-03-10'
+    date: '2022-11-13'
   },
   {
     description: 'Venda celular',
