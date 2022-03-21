@@ -53,7 +53,7 @@ export default [
     amount: '25',
     type: 'despesa',
     frequency: 'eventual',
-    date: '2022-02-14'
+    date: '2021-02-14'
   },
   {
     description: 'Lanche',
@@ -67,6 +67,6 @@ export default [
     amount: '52',
     type: 'despesa',
     frequency: 'eventual',
-    date: '2022-03-13'
+    date: '2019-03-13'
   }
 ]

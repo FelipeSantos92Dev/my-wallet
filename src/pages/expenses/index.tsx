@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import ContentHeader from 'components/ContentHeader'
 import HistoryCard from 'components/HistoryCard'
@@ -7,6 +7,7 @@ import { Container, Content, Filters } from './styles'
 import expenses from 'repositories/expenses'
 import formatCurrency from 'utils/formatCurrency'
 import formatDate from 'utils/formatDate'
+import listOfMonths from 'utils/months'
 
 interface DataProps {
   id: string
@@ -17,7 +18,7 @@ interface DataProps {
   tagColor: string
 }
 
-const List: React.FC = () => {
+const Expenses: React.FC = () => {
   const [data, setData] = useState<DataProps[]>([])
   const [monthSelected, setMonthSelected] = useState<string>(
     String(new Date().getMonth() + 1)
@@ -48,17 +49,34 @@ const List: React.FC = () => {
     setData(formattedData)
   }, [monthSelected, yearSelected])
 
-  const months = [
-    { value: 1, label: 'Janeiro' },
-    { value: 2, label: 'Fevereiro' },
-    { value: 3, label: 'Março' }
-  ]
+  const months = useMemo(() => {
+    return listOfMonths.map((month, index) => {
+      return {
+        value: index + 1,
+        label: month
+      }
+    })
+  }, [])
 
-  const years = [
-    { value: 2020, label: 2020 },
-    { value: 2021, label: 2021 },
-    { value: 2022, label: 2022 }
-  ]
+  const years = useMemo(() => {
+    const uniqueYears: number[] = []
+
+    expenses.forEach((item) => {
+      const date = new Date(item.date)
+      const year = date.getFullYear()
+
+      if (!uniqueYears.includes(year)) {
+        uniqueYears.push(year)
+      }
+    })
+
+    return uniqueYears.map((year) => {
+      return {
+        value: year,
+        label: year
+      }
+    })
+  }, [])
 
   return (
     <Container>
@@ -99,4 +117,4 @@ const List: React.FC = () => {
   )
 }
 
-export default List
+export default Expenses
