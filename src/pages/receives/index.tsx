@@ -2,6 +2,7 @@ import ContentHeader from 'components/ContentHeader'
 import HistoryCard from 'components/HistoryCard'
 import SelectInput from 'components/SelectInput'
 import { Container, Content, Filters } from './styles'
+import receives from 'repositories/receives'
 
 const List: React.FC = () => {
   const months = [

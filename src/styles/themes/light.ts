@@ -12,6 +12,8 @@ export default {
 
     success: '#89D99D',
     warning: '#F2BE22',
-    danger: '#F23005'
+    danger: '#F23005',
+    eventual: '#FEA',
+    recurrent: '#AEF'
   }
 }
