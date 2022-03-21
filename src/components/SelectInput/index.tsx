@@ -1,3 +1,4 @@
+import React from 'react'
 import { Container } from './styles'
 
 interface SelectInputProps {
@@ -5,12 +6,18 @@ interface SelectInputProps {
     value: string | number
     label: string | number
   }[]
+  defaultValue?: string | number
+  onChange(event: React.ChangeEvent<HTMLSelectElement>): void | undefined
 }
 
-const SelectInput: React.FC<SelectInputProps> = ({ options }) => {
+const SelectInput: React.FC<SelectInputProps> = ({
+  options,
+  defaultValue,
+  onChange
+}) => {
   return (
     <Container>
-      <select>
+      <select onChange={onChange} defaultValue={defaultValue}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

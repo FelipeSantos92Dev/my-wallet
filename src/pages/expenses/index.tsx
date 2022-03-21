@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+
 import ContentHeader from 'components/ContentHeader'
 import HistoryCard from 'components/HistoryCard'
 import SelectInput from 'components/SelectInput'
@@ -18,9 +19,23 @@ interface DataProps {
 
 const List: React.FC = () => {
   const [data, setData] = useState<DataProps[]>([])
+  const [monthSelected, setMonthSelected] = useState<string>(
+    String(new Date().getMonth() + 1)
+  )
+  const [yearSelected, setYearSelected] = useState<string>(
+    String(new Date().getFullYear())
+  )
 
   useEffect(() => {
-    const response = expenses.map((item) => {
+    const filteredData = expenses.filter((item) => {
+      const date = new Date(item.date)
+      const month = String(date.getMonth() + 1)
+      const year = String(date.getFullYear())
+
+      return month === monthSelected && year === yearSelected
+    })
+
+    const formattedData = filteredData.map((item) => {
       return {
         id: String(Math.random() * 10),
         description: item.description,
@@ -30,8 +45,8 @@ const List: React.FC = () => {
         tagColor: item.frequency === 'eventual' ? '#FEA' : '#AEF'
       }
     })
-    setData(response)
-  }, [])
+    setData(formattedData)
+  }, [monthSelected, yearSelected])
 
   const months = [
     { value: 1, label: 'Janeiro' },
@@ -48,8 +63,16 @@ const List: React.FC = () => {
   return (
     <Container>
       <ContentHeader title="Despesas" lineColor="#F23005">
-        <SelectInput options={months} />
-        <SelectInput options={years} />
+        <SelectInput
+          options={months}
+          defaultValue={monthSelected}
+          onChange={(e) => setMonthSelected(e.target.value)}
+        />
+        <SelectInput
+          options={years}
+          defaultValue={yearSelected}
+          onChange={(e) => setYearSelected(e.target.value)}
+        />
       </ContentHeader>
 
       <Filters>
