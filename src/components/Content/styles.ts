@@ -14,6 +14,7 @@ export const Container = styled.div`
   }
   ::-webkit-scrollbar-thumb {
     background-color: ${(props) => props.theme.colors.secondary};
+    border-radius: 10px;
   }
   ::-webkit-scrollbar-track {
     background-color: ${(props) => props.theme.colors.gray};

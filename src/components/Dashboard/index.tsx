@@ -8,6 +8,7 @@ import listOfMonths from 'utils/months'
 import expenses from 'repositories/expenses'
 import MessageBox from 'components/MessageBox'
 import receives from 'repositories/receives'
+import PieChart from 'components/PieChart'
 
 export default function Dashboard() {
   const [monthSelected, setMonthSelected] = useState<number>(
@@ -96,7 +97,7 @@ export default function Dashboard() {
         description: 'Neste mês o seu saldo ficou negativo!',
         footerText: 'Considere economizar em despesas secundárias!'
       }
-    } else if (totalBalance == 0) {
+    } else if (totalBalance === 0) {
       return {
         title: "Uffa'!",
         description: 'Neste mês você utilizou toda a sua receita!',
@@ -172,6 +173,8 @@ export default function Dashboard() {
           description={message.description}
           footerText={message.footerText}
         />
+
+        <PieChart></PieChart>
       </Content>
     </Container>
   )
