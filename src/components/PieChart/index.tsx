@@ -6,56 +6,44 @@ import {
   LegendContainer
 } from './styles'
 import {
-  PieChart as PieReachart,
+  PieChart as PieRechart,
   Pie,
   ResponsiveContainer,
   Cell
 } from 'recharts'
 
-const PieChart: React.FC = () => (
+interface PieChartProps {
+  data: {
+    name: string
+    value: number
+    percent: number
+    color: string
+  }[]
+}
+
+const PieChart: React.FC<PieChartProps> = ({ data }) => (
   <Container>
     <SideLeft>
       <h2>Resumo</h2>
       <LegendContainer>
-        <Legend color={'#034500'}>
-          <div>75%</div>
-          <span>Receitas</span>
-        </Legend>
-        <Legend color={'#7a120b'}>
-          <div>25%</div>
-          <span>Despesas</span>
-        </Legend>
-        <Legend color={'#034500'}>
-          <div>75%</div>
-          <span>Receitas</span>
-        </Legend>
-        <Legend color={'#7a120b'}>
-          <div>25%</div>
-          <span>Despesas</span>
-        </Legend>
-        <Legend color={'#034500'}>
-          <div>75%</div>
-          <span>Receitas</span>
-        </Legend>
-        <Legend color={'#7a120b'}>
-          <div>25%</div>
-          <span>Despesas</span>
-        </Legend>
-        <Legend color={'#034500'}>
-          <div>75%</div>
-          <span>Receitas</span>
-        </Legend>
-        <Legend color={'#7a120b'}>
-          <div>25%</div>
-          <span>Despesas</span>
-        </Legend>
+        {data.map((indicator) => (
+          <Legend key={indicator.name} color={indicator.color}>
+            <div>{indicator.percent}%</div>
+            <span>{indicator.name}</span>
+          </Legend>
+        ))}
       </LegendContainer>
     </SideLeft>
+
     <SideRight>
       <ResponsiveContainer>
-        <PieReachart>
-          <Pie data={[]} labelLine={false} dataKey={'percent'} />
-        </PieReachart>
+        <PieRechart>
+          <Pie data={data} labelLine={false} dataKey={'percent'}>
+            {data.map((indicator) => (
+              <Cell key={indicator.name} fill={indicator.color} />
+            ))}
+          </Pie>
+        </PieRechart>
       </ResponsiveContainer>
     </SideRight>
   </Container>

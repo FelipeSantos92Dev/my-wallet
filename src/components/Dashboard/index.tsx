@@ -112,6 +112,29 @@ export default function Dashboard() {
     }
   }, [totalBalance])
 
+  const difference = useMemo(() => {
+    const total = totalReceives + totalExpenses
+
+    const receivesPercent = (totalReceives / total) * 100
+    const expensesPercent = (totalExpenses / total) * 100
+
+    const data = [
+      {
+        name: 'Receitas',
+        value: totalReceives,
+        percent: Number(receivesPercent.toFixed(1)),
+        color: '#034500'
+      },
+      {
+        name: 'Despesas',
+        value: totalExpenses,
+        percent: Number(expensesPercent.toFixed(1)),
+        color: '#7A120B'
+      }
+    ]
+    return data
+  }, [totalExpenses, totalReceives])
+
   const handleMonthSelected = (month: string) => {
     try {
       const parseMonth = Number(month)
@@ -164,7 +187,7 @@ export default function Dashboard() {
           title="despesas"
           amount={totalExpenses}
           footer={'atualizado'}
-          color={'#7a120b'}
+          color={'#7A120B'}
           icon={'down'}
         />
 
@@ -174,7 +197,7 @@ export default function Dashboard() {
           footerText={message.footerText}
         />
 
-        <PieChart></PieChart>
+        <PieChart data={difference} />
       </Content>
     </Container>
   )

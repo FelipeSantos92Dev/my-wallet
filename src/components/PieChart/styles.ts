@@ -22,7 +22,11 @@ export const SideLeft = styled.aside`
   }
 `
 
-export const SideRight = styled.main``
+export const SideRight = styled.main`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+`
 
 export const LegendContainer = styled.ul`
   list-style: none;
@@ -49,12 +53,12 @@ export const Legend = styled.li<LegendProps>`
 
   > div {
     background-color: ${(props) => props.color};
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 5px;
     font-size: 14px;
     font-weight: bold;
-    line-height: 40px;
+    line-height: 50px;
     text-align: center;
   }
 
