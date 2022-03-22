@@ -24,12 +24,12 @@ const Aside: React.FC = () => {
         </MenuItemLink>
 
         <MenuItemLink href="/receives">
-          <MdArrowDownward />
+          <MdArrowUpward />
           Receitas
         </MenuItemLink>
 
         <MenuItemLink href="/expenses">
-          <MdArrowUpward />
+          <MdArrowDownward />
           Despesas
         </MenuItemLink>
 

@@ -1,26 +1,5 @@
-import ContentHeader from 'components/ContentHeader'
-import SelectInput from 'components/SelectInput'
-import { Container } from './styles'
+import Dashboard from 'components/Dashboard'
 
-const Dashboard: React.FC = () => {
-  const options = [
-    { value: 1, label: 'Janeiro' },
-    { value: 2, label: 'Fevereiro' },
-    { value: 3, label: 'Março' }
-  ]
-
-  return (
-    <Container>
-      <ContentHeader title="Dashboard" lineColor="#D6D2CB">
-        <SelectInput
-          options={options}
-          onChange={() => {
-            ;('')
-          }}
-        />
-      </ContentHeader>
-    </Container>
-  )
+export default function dashboard() {
+  return <Dashboard />
 }
-
-export default Dashboard
