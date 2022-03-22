@@ -7,7 +7,7 @@ import { Container, Content } from './styles'
 import listOfMonths from 'utils/months'
 import expenses from 'repositories/expenses'
 import MessageBox from 'components/MessageBox'
-// import receives from 'repositories/receives'
+import receives from 'repositories/receives'
 
 export default function Dashboard() {
   const [monthSelected, setMonthSelected] = useState<number>(
@@ -26,24 +26,6 @@ export default function Dashboard() {
       }
     })
   }, [])
-
-  const handleMonthSelected = (month: string) => {
-    try {
-      const parseMonth = Number(month)
-      setMonthSelected(parseMonth)
-    } catch (error) {
-      throw new Error('Invalid month value')
-    }
-  }
-
-  const handleYearSelected = (year: string) => {
-    try {
-      const parseYear = Number(year)
-      setYearSelected(parseYear)
-    } catch (error) {
-      throw new Error('Invalid year value')
-    }
-  }
 
   const years = useMemo(() => {
     const uniqueYears: number[] = []
@@ -65,6 +47,88 @@ export default function Dashboard() {
     })
   }, [])
 
+  const totalReceives = useMemo(() => {
+    let total = 0
+
+    receives.forEach((item) => {
+      const date = new Date(item.date)
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1
+
+      if (month === monthSelected && year === yearSelected) {
+        try {
+          total += Number(item.amount)
+        } catch {
+          throw new Error('Invalid amount data')
+        }
+      }
+    })
+    return total
+  }, [monthSelected, yearSelected])
+
+  const totalExpenses = useMemo(() => {
+    let total = 0
+
+    expenses.forEach((item) => {
+      const date = new Date(item.date)
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1
+
+      if (month === monthSelected && year === yearSelected) {
+        try {
+          total += Number(item.amount)
+        } catch {
+          throw new Error('Invalid amount data')
+        }
+      }
+    })
+    return total
+  }, [monthSelected, yearSelected])
+
+  const totalBalance = useMemo(() => {
+    return totalReceives - totalExpenses
+  }, [totalExpenses, totalReceives])
+
+  const message = useMemo(() => {
+    if (totalBalance < 0) {
+      return {
+        title: 'Opa!',
+        description: 'Neste mês o seu saldo ficou negativo!',
+        footerText: 'Considere economizar em despesas secundárias!'
+      }
+    } else if (totalBalance == 0) {
+      return {
+        title: "Uffa'!",
+        description: 'Neste mês você utilizou toda a sua receita!',
+        footerText: 'Verifique se alguns gastos podem ser cortados!'
+      }
+    } else {
+      return {
+        title: 'Muito bem!',
+        description: 'Neste mês sua carteira ficou positiva!',
+        footerText: 'Considere investir o saldo!'
+      }
+    }
+  }, [totalBalance])
+
+  const handleMonthSelected = (month: string) => {
+    try {
+      const parseMonth = Number(month)
+      setMonthSelected(parseMonth)
+    } catch {
+      throw new Error('Invalid month value')
+    }
+  }
+
+  const handleYearSelected = (year: string) => {
+    try {
+      const parseYear = Number(year)
+      setYearSelected(parseYear)
+    } catch {
+      throw new Error('Invalid year value')
+    }
+  }
+
   return (
     <Container>
       <ContentHeader title="Dashboard" lineColor="#D6D2CB">
@@ -83,30 +147,30 @@ export default function Dashboard() {
       <Content>
         <WalletCard
           title="saldo"
-          amount={150}
+          amount={totalBalance}
           footer={'atualizado'}
           color={'#161773'}
           icon={'dollar'}
         />
         <WalletCard
           title="receitas"
-          amount={5000}
+          amount={totalReceives}
           footer={'atualizado'}
           color={'#034500'}
           icon={'up'}
         />
         <WalletCard
           title="despesas"
-          amount={4850}
+          amount={totalExpenses}
           footer={'atualizado'}
           color={'#7a120b'}
           icon={'down'}
         />
 
         <MessageBox
-          title="Muito bem!"
-          description="Sua carteira está positiva"
-          footerText="Considere investir o seu valor!"
+          title={message.title}
+          description={message.description}
+          footerText={message.footerText}
         />
       </Content>
     </Container>
