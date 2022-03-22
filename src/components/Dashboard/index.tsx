@@ -115,6 +115,24 @@ export default function Dashboard() {
   const difference = useMemo(() => {
     const total = totalReceives + totalExpenses
 
+    if (totalReceives === 0 && totalExpenses === 0) {
+      const data = [
+        {
+          name: 'Receitas',
+          value: 0,
+          percent: 0,
+          color: '#034500'
+        },
+        {
+          name: 'Despesas',
+          value: 0,
+          percent: 0,
+          color: '#7A120B'
+        }
+      ]
+      return data
+    }
+
     const receivesPercent = (totalReceives / total) * 100
     const expensesPercent = (totalExpenses / total) * 100
 
