@@ -6,6 +6,7 @@ import { WalletCard } from 'components/WalletCard'
 import { Container, Content } from './styles'
 import listOfMonths from 'utils/months'
 import expenses from 'repositories/expenses'
+import MessageBox from 'components/MessageBox'
 // import receives from 'repositories/receives'
 
 export default function Dashboard() {
@@ -100,6 +101,12 @@ export default function Dashboard() {
           footer={'atualizado'}
           color={'#7a120b'}
           icon={'down'}
+        />
+
+        <MessageBox
+          title="Muito bem!"
+          description="Sua carteira está positiva"
+          footerText="Considere investir o seu valor!"
         />
       </Content>
     </Container>
