@@ -68,5 +68,12 @@ export default [
     type: 'despesa',
     frequency: 'eventual',
     date: '2019-03-13'
+  },
+  {
+    description: 'Viagem',
+    amount: '12000',
+    type: 'despesa',
+    frequency: 'eventual',
+    date: '2021-12-21'
   }
 ]

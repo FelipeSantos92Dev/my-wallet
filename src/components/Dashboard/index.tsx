@@ -9,6 +9,7 @@ import expenses from 'repositories/expenses'
 import MessageBox from 'components/MessageBox'
 import receives from 'repositories/receives'
 import PieChart from 'components/PieChart'
+import HistoryBox from 'components/HistoryBox'
 
 export default function Dashboard() {
   const [monthSelected, setMonthSelected] = useState<number>(
@@ -153,6 +154,57 @@ export default function Dashboard() {
     return data
   }, [totalExpenses, totalReceives])
 
+  const historyData = useMemo(() => {
+    return listOfMonths
+      .map((_, month) => {
+        let amountEntry = 0
+        receives.forEach((receive) => {
+          const date = new Date(receive.date)
+          const receiveMonth = date.getMonth()
+          const receiveYear = date.getFullYear()
+
+          if (receiveMonth === month && receiveYear === yearSelected) {
+            try {
+              amountEntry += Number(receive.amount)
+            } catch {
+              throw new Error('Amount data is invalid!')
+            }
+          }
+        })
+
+        let amountOutput = 0
+        expenses.forEach((expense) => {
+          const date = new Date(expense.date)
+          const expenseMonth = date.getMonth()
+          const expenseYear = date.getFullYear()
+
+          if (expenseMonth === month && expenseYear === yearSelected) {
+            try {
+              amountOutput += Number(expense.amount)
+            } catch {
+              throw new Error('Amount data is invalid!')
+            }
+          }
+        })
+
+        return {
+          monthNumber: month,
+          month: listOfMonths[month].slice(0, 3),
+          amountEntry,
+          amountOutput
+        }
+      })
+      .filter((item) => {
+        const currentMonth = new Date().getMonth()
+        const currentYear = new Date().getFullYear()
+
+        return (
+          (yearSelected === currentYear && item.monthNumber <= currentMonth) ||
+          yearSelected < currentYear
+        )
+      })
+  }, [yearSelected])
+
   const handleMonthSelected = (month: string) => {
     try {
       const parseMonth = Number(month)
@@ -216,6 +268,12 @@ export default function Dashboard() {
         />
 
         <PieChart data={difference} />
+
+        <HistoryBox
+          data={historyData}
+          lineColorAmountEntry={'#22BABB'}
+          lineColorAmountOutput={'#F24405'}
+        />
       </Content>
     </Container>
   )
